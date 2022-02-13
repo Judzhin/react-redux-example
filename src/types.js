@@ -1,0 +1,3 @@
+export const SHOW_SPINNER = 'APP:SHOW_SPINNER';
+export const HIDE_SPINNER = 'APP:HIDE_SPINNER';
+export const TOGGLE_SPINNER = 'APP:TOGGLE_SPINNER';
