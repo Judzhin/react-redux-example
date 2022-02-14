@@ -34,14 +34,28 @@ export function toggleSpinner() {
 
 /**
  *
- * @param payload
- * @returns {{type: string, payload: *}}
+ * @returns {Function}
  */
-function factoryAlert(payload) {
+export function hideAlert() {
+    return factoryAlert(null, null);
+}
+
+/**
+ *
+ * @param payload
+ * @param title
+ * @returns {Function}
+ */
+function factoryAlert(payload, title = 'Информационное сообщение') {
     return dispatch => {
         setTimeout(() => {
-            dispatch(hideWarning());
+            dispatch(hideAlert());
         }, 1000 * 10);
+
+        if (payload) {
+            payload = {...payload, title}
+        }
+
         dispatch({
             type: APP_SHOW_ALERT,
             payload: payload
@@ -51,22 +65,36 @@ function factoryAlert(payload) {
 
 /**
  *
- * @param title
  * @param message
- * @returns {{type: string, payload: {title: *, message: *}}}
+ * @param title
+ * @returns {Function}
  */
-export function showWarning(title, message) {
+export function showWarning(message, title) {
     return factoryAlert({
-        severity: 'warning', title, message
-    });
+        severity: 'warning', message
+    }, title);
 }
 
 /**
  *
- * @param title
  * @param message
- * @returns {{type: string, payload: {title: *, message: *}}}
+ * @param title
+ * @returns {Function}
  */
-export function hideWarning(title, message) {
-    return factoryAlert(null);
+export function showInfo(message, title) {
+    return factoryAlert({
+        severity: 'info', message
+    }, title);
+}
+
+/**
+ *
+ * @param message
+ * @param title
+ * @returns {Function}
+ */
+export function showSuccess(message, title) {
+    return factoryAlert({
+        severity: 'success', message
+    }, title);
 }

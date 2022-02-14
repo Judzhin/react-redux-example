@@ -1,6 +1,6 @@
 import {LOAD_POSTS, POST_CREATE} from "./types";
 // import {hideSpinner, showSpinner, toggleSpinner} from "../../actions";
-import {toggleSpinner} from "../../actions";
+import {hideAlert, showSuccess, toggleSpinner} from "../../actions";
 
 /**
  *
@@ -8,9 +8,19 @@ import {toggleSpinner} from "../../actions";
  * @returns {{type: string, payload: *}}
  */
 export function createPost(post) {
-    return {
-        type: POST_CREATE,
-        payload: post
+    // return {
+    //     type: POST_CREATE,
+    //     payload: post
+    // }
+    return dispatch => {
+        dispatch(showSuccess('Пост был удачно создан'));
+        dispatch({
+            type: POST_CREATE,
+            payload: post
+        });
+        setTimeout(() => {
+            dispatch(hideAlert())
+        }, 10000)
     }
 }
 
@@ -38,11 +48,11 @@ export function loadPosts() {
         dispatch(toggleSpinner());
 
         fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
-        .then(response => response.json())
-        .then(data => {
-            // dispatch(hideSpinner());
-            dispatch(toggleSpinner());
-            dispatch({type: LOAD_POSTS, payload: data});
-        })
+            .then(response => response.json())
+            .then(data => {
+                // dispatch(hideSpinner());
+                dispatch(toggleSpinner());
+                dispatch({type: LOAD_POSTS, payload: data});
+            })
     }
 }

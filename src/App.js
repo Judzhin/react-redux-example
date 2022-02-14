@@ -10,7 +10,7 @@ import Modal from "@mui/material/Modal/Modal";
 import Box from "@mui/material/Box/Box";
 import Alert from "@mui/material/Alert/Alert";
 import AlertTitle from "@mui/material/AlertTitle/AlertTitle";
-import {hideWarning} from "./actions";
+import {hideAlert} from "./actions";
 
 // import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
@@ -20,7 +20,7 @@ function App() {
     const app = useSelector(state => state.app);
 
     const onCloseAlert = () => {
-        dispatch(hideWarning());
+        dispatch(hideAlert());
     }
 
     return (
