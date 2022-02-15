@@ -2,7 +2,7 @@ import React from 'react';
 import Post from "./Post";
 import Button from "@mui/material/Button/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {loadPosts} from "./actions";
+import {requestPosts} from "./actions";
 
 /**
  *
@@ -20,7 +20,7 @@ export default function AsyncPosts() {
     if (!posts.length) {
         return (
             <div className={'text-center'}>
-                <Button onClick={(e) => dispatch(loadPosts())}>Load Posts</Button>
+                <Button onClick={(e) => dispatch(requestPosts())}>Load Posts</Button>
             </div>
         )
     }

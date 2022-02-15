@@ -7,9 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import {applyMiddleware, createStore} from "redux";
 import {Provider} from "react-redux";
 import thunk from "redux-thunk";
+import createSagaMiddleware from 'redux-saga';
 import {rootReducer} from "./rootReducer";
 import {composeWithDevTools} from "@redux-devtools/extension";
 import {forbiddenWordsMiddleware} from "./components/Post/middleware";
+import {sagaWatcher} from "./components/Post/sagas";
 
 
 // ReactDOM.render(
@@ -21,9 +23,16 @@ import {forbiddenWordsMiddleware} from "./components/Post/middleware";
 
 // const store = createStore(rootReducer,
 //     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// const store = createStore(rootReducer, composeWithDevTools(
+//     applyMiddleware(thunk, forbiddenWordsMiddleware)
+// ));
+
+// Work with saga
+const saga = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(
-    applyMiddleware(thunk, forbiddenWordsMiddleware)
+    applyMiddleware(thunk, forbiddenWordsMiddleware, saga)
 ));
+saga.run(sagaWatcher);
 
 // const app = (
 //     <Provider store>
